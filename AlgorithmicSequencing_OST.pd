@@ -1982,6 +1982,8 @@
 #X restore 1076 148 pd randomTrigger;
 #X obj 1169 74 loadbang;
 #X msg 1169 95 0.5;
+#X obj 1155 272 loadbang;
+#X text 372 7 start of da music;
 #X connect 0 0 101 0;
 #X connect 0 0 103 0;
 #X connect 0 0 133 0;
@@ -2137,3 +2139,4 @@
 #X connect 135 0 117 0;
 #X connect 136 0 137 0;
 #X connect 137 0 134 0;
+#X connect 138 0 113 0;
