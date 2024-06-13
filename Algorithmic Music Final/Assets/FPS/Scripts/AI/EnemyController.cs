@@ -350,9 +350,11 @@ namespace Unity.FPS.AI
                 m_LastTimeDamaged = Time.time;
             
                 // play the damage tick sound
-                if (DamageTick && !m_WasDamagedThisFrame)
-                    AudioUtility.CreateSFX(DamageTick, transform.position, AudioUtility.AudioGroups.DamageTick, 0f);
+                if (DamageTick && !m_WasDamagedThisFrame){
+                    //AudioUtility.CreateSFX(DamageTick, transform.position, AudioUtility.AudioGroups.DamageTick, 0f);
                     // [PD] ENEMY DAMAGE TAKEN
+                    OSCHandler.Instance.SendMessageToClient("pd","/unity/enemyDamage", 0);
+                }
                 m_WasDamagedThisFrame = true;
             }
         }

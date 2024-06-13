@@ -194,9 +194,9 @@ namespace Unity.FPS.Gameplay
                 {
                     float dmgFromFall = Mathf.Lerp(FallDamageAtMinSpeed, FallDamageAtMaxSpeed, fallSpeedRatio);
                     m_Health.TakeDamage(dmgFromFall, null);
-
                     // fall damage SFX
-                    AudioSource.PlayOneShot(FallDamageSfx);
+                    //AudioSource.PlayOneShot(FallDamageSfx);
+                    OSCHandler.Instance.SendMessageToClient("pd","/unity/enemyDeath", 0);
                     //INSTEAD [PD] PLAYER DEATH NOISE 
                 }
                 else
@@ -343,12 +343,15 @@ namespace Unity.FPS.Gameplay
                     // footsteps sound
                     float chosenFootstepSfxFrequency =
                         (isSprinting ? FootstepSfxFrequencyWhileSprinting : FootstepSfxFrequency);
+                    
+                    OSCHandler.Instance.SendMessageToClient("pd","/unity/walkspeed", chosenFootstepSfxFrequency);
+                    /*
                     if (m_FootstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
                     {
                         m_FootstepDistanceCounter = 0f;
                         AudioSource.PlayOneShot(FootstepSfx);
                         // [PD] INSTEAD SET WALKING SPEED AND TRIGGER THINGY
-                    }
+                    }*/
 
                     // keep track of distance traveled for footsteps sound
                     m_FootstepDistanceCounter += CharacterVelocity.magnitude * Time.deltaTime;
