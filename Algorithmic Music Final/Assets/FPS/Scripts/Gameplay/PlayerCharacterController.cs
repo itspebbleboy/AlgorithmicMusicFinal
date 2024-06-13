@@ -197,6 +197,7 @@ namespace Unity.FPS.Gameplay
 
                     // fall damage SFX
                     AudioSource.PlayOneShot(FallDamageSfx);
+                    //INSTEAD [PD] PLAYER DEATH NOISE 
                 }
                 else
                 {
@@ -346,6 +347,7 @@ namespace Unity.FPS.Gameplay
                     {
                         m_FootstepDistanceCounter = 0f;
                         AudioSource.PlayOneShot(FootstepSfx);
+                        // [PD] INSTEAD SET WALKING SPEED AND TRIGGER THINGY
                     }
 
                     // keep track of distance traveled for footsteps sound
