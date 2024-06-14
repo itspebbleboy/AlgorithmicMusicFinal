@@ -36,14 +36,14 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\FPS\Scripts\AI\DetectionModule.cs" />
-     <Compile Include="Assets\FPS\Scripts\AI\EnemyMobile.cs" />
-     <Compile Include="Assets\FPS\Scripts\AI\EnemyController.cs" />
-     <Compile Include="Assets\FPS\Scripts\AI\PatrolPath.cs" />
-     <Compile Include="Assets\FPS\Scripts\AI\EnemyManager.cs" />
      <Compile Include="Assets\FPS\Scripts\AI\NavigationModule.cs" />
-     <Compile Include="Assets\FPS\Scripts\AI\EnemyTurret.cs" />
+     <Compile Include="Assets\FPS\Scripts\AI\EnemyManager.cs" />
      <Compile Include="Assets\FPS\Scripts\AI\FollowPlayer.cs" />
+     <Compile Include="Assets\FPS\Scripts\AI\EnemyTurret.cs" />
+     <Compile Include="Assets\FPS\Scripts\AI\EnemyMobile.cs" />
+     <Compile Include="Assets\FPS\Scripts\AI\PatrolPath.cs" />
+     <Compile Include="Assets\FPS\Scripts\AI\DetectionModule.cs" />
+     <Compile Include="Assets\FPS\Scripts\AI\EnemyController.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -646,6 +646,10 @@
     <ProjectReference Include="fps.Game.csproj">
       <Project>{24578472-dc70-081d-4a44-ab22291ea003}</Project>
       <Name>fps.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityOSC.csproj">
+      <Project>{1048d237-079f-3289-5903-8d8edf78bf1e}</Project>
+      <Name>UnityOSC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

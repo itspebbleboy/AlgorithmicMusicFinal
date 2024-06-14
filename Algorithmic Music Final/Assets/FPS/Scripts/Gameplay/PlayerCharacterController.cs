@@ -1,6 +1,7 @@
 ﻿using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityOSC;
 
 namespace Unity.FPS.Gameplay
 {
@@ -103,7 +104,7 @@ namespace Unity.FPS.Gameplay
         public bool HasJumpedThisFrame { get; private set; }
         public bool IsDead { get; private set; }
         public bool IsCrouching { get; private set; }
-
+        public bool musicPlaying = false;
         public float RotationMultiplier
         {
             get
@@ -142,6 +143,7 @@ namespace Unity.FPS.Gameplay
 
         void Start()
         {
+            OSCHandler.Instance.Init();
             // fetch components on the same gameObject
             m_Controller = GetComponent<CharacterController>();
             DebugUtility.HandleErrorIfNullGetComponent<CharacterController, PlayerCharacterController>(m_Controller,
@@ -168,10 +170,12 @@ namespace Unity.FPS.Gameplay
             // force the crouch state to false when starting
             SetCrouchingState(false, true);
             UpdateCharacterHeight(true);
+            OSCHandler.Instance.SendMessageToClient("pd","/unity/music", 1);
         }
 
         void Update()
-        {
+        {   
+
             // check for Y kill
             if (!IsDead && transform.position.y < KillHeight)
             {
@@ -202,7 +206,7 @@ namespace Unity.FPS.Gameplay
                 else
                 {
                     // land SFX
-                    AudioSource.PlayOneShot(LandSfx);
+                    //AudioSource.PlayOneShot(LandSfx);
                 }
             }
 
@@ -223,8 +227,10 @@ namespace Unity.FPS.Gameplay
 
             // Tell the weapons manager to switch to a non-existing weapon in order to lower the weapon
             m_WeaponsManager.SwitchToWeaponIndex(-1, true);
-
             EventManager.Broadcast(Events.PlayerDeathEvent);
+            OSCHandler.Instance.SendMessageToClient("pd","/unity/playerDeath", UnityEngine.Random.Range(0,0));
+            
+            OSCHandler.Instance.SendMessageToClient("pd","/unity/music", 0);
         }
 
         void GroundCheck()
@@ -305,7 +311,7 @@ namespace Unity.FPS.Gameplay
                 {
                     // calculate the desired velocity from inputs, max speed, and current slope
                     Vector3 targetVelocity = worldspaceMoveInput * MaxSpeedOnGround * speedModifier;
-                    // reduce speed if crouching by crouch speed ratio
+                    // reduce speed if crouching by crouch speed ratio  
                     if (IsCrouching)
                         targetVelocity *= MaxSpeedCrouchedRatio;
                     targetVelocity = GetDirectionReorientedOnSlope(targetVelocity.normalized, m_GroundNormal) *
@@ -314,10 +320,19 @@ namespace Unity.FPS.Gameplay
                     // smoothly interpolate between our current velocity and the target velocity based on acceleration speed
                     CharacterVelocity = Vector3.Lerp(CharacterVelocity, targetVelocity,
                         MovementSharpnessOnGround * Time.deltaTime);
+                    float walkingSpeed = Mathf.Sqrt(Mathf.Pow(CharacterVelocity.x, 2) + Mathf.Pow(CharacterVelocity.y, 2) + Mathf.Pow(CharacterVelocity.z, 2));
+                    walkingSpeed = Mathf.Clamp((walkingSpeed*10)/190, 0.0f, 0.9f);
+                    if (walkingSpeed < 0.001f) walkingSpeed = -1;
+                    if(CharacterVelocity.y >.1 && CharacterVelocity.y<.1) walkingSpeed = 0;
+                    Debug.Log("CharacterVelocity: " + CharacterVelocity); 
+                    Debug.Log("walkingSpeed: " + walkingSpeed); 
+                    OSCHandler.Instance.SendMessageToClient("pd","/unity/walkspeed", walkingSpeed);
 
                     // jumping
                     if (IsGrounded && m_InputHandler.GetJumpInputDown())
                     {
+                        
+                        OSCHandler.Instance.SendMessageToClient("pd","/unity/walkspeed", 0);
                         // force the crouch state to false
                         if (SetCrouchingState(false, false))
                         {
@@ -328,7 +343,7 @@ namespace Unity.FPS.Gameplay
                             CharacterVelocity += Vector3.up * JumpForce;
 
                             // play sound
-                            AudioSource.PlayOneShot(JumpSfx);
+                            //AudioSource.PlayOneShot(JumpSfx);
 
                             // remember last time we jumped because we need to prevent snapping to ground for a short time
                             m_LastTimeJumped = Time.time;
@@ -344,7 +359,8 @@ namespace Unity.FPS.Gameplay
                     float chosenFootstepSfxFrequency =
                         (isSprinting ? FootstepSfxFrequencyWhileSprinting : FootstepSfxFrequency);
                     
-                    OSCHandler.Instance.SendMessageToClient("pd","/unity/walkspeed", chosenFootstepSfxFrequency);
+                    //OSCHandler.Instance.SendMessageToClient("pd","/unity/walkspeed", chosenFootstepSfxFrequency);
+                    //Debug.Log("chosenFootstepSfxFrequency: " + chosenFootstepSfxFrequency);
                     /*
                     if (m_FootstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
                     {

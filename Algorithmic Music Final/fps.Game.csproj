@@ -36,32 +36,32 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\FPS\Scripts\Game\GameConstants.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\TimedSelfDestruct.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\MeshCombiner.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Events.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Managers\ObjectiveManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Shared\Objective.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Managers\ActorsManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Shared\Damageable.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Managers\EventManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Managers\AudioManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\MeshCombineUtility.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\Shared\Health.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\IgnoreHitDetection.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\MinMaxParameters.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\PrefabReplacer.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\AudioUtility.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Shared\ProjectileBase.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Shared\Damageable.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Managers\ObjectiveManager.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\PrefabReplacerOnInstance.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\Shared\WeaponController.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Managers\GameFlowManager.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\DebugUtility.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Managers\ActorsManager.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\Actor.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\TimedSelfDestruct.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\ConstantRotation.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Managers\EventManager.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\MeshCombiner.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Managers\AudioManager.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\GameConstants.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\MinMaxParameters.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\PrefabReplacerOnInstance.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Managers\GameFlowManager.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\Shared\DamageArea.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Events.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\AudioUtility.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\DebugUtility.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\IgnoreHeatMap.cs" />
      <Compile Include="Assets\FPS\Scripts\Game\Shared\Destructable.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\MeshCombineUtility.cs" />
-     <Compile Include="Assets\FPS\Scripts\Game\Shared\Objective.cs" />
+     <Compile Include="Assets\FPS\Scripts\Game\Shared\ProjectileBase.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -664,6 +664,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="UnityOSC.csproj">
+      <Project>{1048d237-079f-3289-5903-8d8edf78bf1e}</Project>
+      <Name>UnityOSC</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

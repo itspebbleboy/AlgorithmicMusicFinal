@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityOSC;
 
 namespace Unity.FPS.Game
 {
@@ -78,6 +79,8 @@ namespace Unity.FPS.Game
             {
                 m_SceneToLoad = WinSceneName;
                 m_TimeLoadEndGameScene = Time.time + EndSceneLoadDelay + DelayBeforeFadeToBlack;
+                
+                OSCHandler.Instance.SendMessageToClient("pd","/unity/music", 1);
 
                 // play a sound on win
                 var audioSource = gameObject.AddComponent<AudioSource>();

@@ -2,6 +2,7 @@
 using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityOSC;
 
 namespace Unity.FPS.Gameplay
 {
@@ -117,6 +118,7 @@ namespace Unity.FPS.Gameplay
             }
 
             SwitchWeapon(true);
+            
         }
 
         void Update()

@@ -1,5 +1,6 @@
 ﻿using Unity.FPS.Game;
 using UnityEngine;
+using UnityOSC;
 
 namespace Unity.FPS.Gameplay
 {
@@ -74,7 +75,8 @@ namespace Unity.FPS.Gameplay
 
             if (PickupSfx)
             {
-                AudioUtility.CreateSFX(PickupSfx, transform.position, AudioUtility.AudioGroups.Pickup, 0f);
+                //AudioUtility.CreateSFX(PickupSfx, transform.position, AudioUtility.AudioGroups.Pickup, 0f);
+                OSCHandler.Instance.SendMessageToClient("pd","/unity/collectable", UnityEngine.Random.Range(0,3));
             }
 
             if (PickupVfxPrefab)

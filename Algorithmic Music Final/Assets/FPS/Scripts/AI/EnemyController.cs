@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+using UnityOSC;
+
 namespace Unity.FPS.AI
 {
     [RequireComponent(typeof(Health), typeof(Actor), typeof(NavMeshAgent))]
@@ -363,6 +365,7 @@ namespace Unity.FPS.AI
         {
             // spawn a particle system when dying
             var vfx = Instantiate(DeathVfx, DeathVfxSpawnPoint.position, Quaternion.identity);
+            OSCHandler.Instance.SendMessageToClient("pd","/unity/enemyDeath", 0);
             Destroy(vfx, 5f);
 
             // tells the game flow manager to handle the enemy destuction

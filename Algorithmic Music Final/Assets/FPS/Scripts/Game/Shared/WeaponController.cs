@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityOSC;
 
 namespace Unity.FPS.Game
 {
@@ -212,9 +213,8 @@ namespace Unity.FPS.Game
             m_PhysicalAmmoPool.Enqueue(nextShell);
         }
 
-        void PlaySFX(AudioClip sfx) => AudioUtility.CreateSFX(sfx, transform.position, AudioUtility.AudioGroups.WeaponShoot, 0.0f);
-
-
+        //void PlaySFX(AudioClip sfx) => AudioUtility.CreateSFX(sfx, transform.position, AudioUtility.AudioGroups.WeaponShoot, 0.0f);
+        void PlaySFX(AudioClip sfx) => OSCHandler.Instance.SendMessageToClient("pd","/unity/gunshot", UnityEngine.Random.Range(0,3));
         void Reload()
         {
             if (m_CarriedPhysicalBullets > 0)
@@ -353,6 +353,7 @@ namespace Unity.FPS.Game
         public bool HandleShootInputs(bool inputDown, bool inputHeld, bool inputUp)
         {
             m_WantsToShoot = inputDown || inputHeld;
+
             switch (ShootType)
             {
                 case WeaponShootType.Manual:
@@ -477,7 +478,9 @@ namespace Unity.FPS.Game
             // play shoot SFX
             if (ShootSfx && !UseContinuousShootSound)
             {
-                m_ShootAudioSource.PlayOneShot(ShootSfx);
+                
+                OSCHandler.Instance.SendMessageToClient("pd","/unity/shootSingle", 0);
+                //m_ShootAudioSource.PlayOneShot(ShootSfx);
             }
 
             // Trigger attack animation if there is any
